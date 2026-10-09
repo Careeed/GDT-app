@@ -2,33 +2,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Ludoteca</title>
 <style>
-:root{--bg:#123a33;--sf:#1b4b42;--sf2:#245c51;--tx:#f1ede2;--mu:#a9c2b8;--ac:#f2b632;--bad:#ff8a73;--ok:#8fe0a8}
+:root{--bg:#0e2f29;--sf:#1b4b42;--sf2:#2a6b5d;--tx:#f4f0e6;--mu:#a9c2b8;--ac:#f2b632;--bad:#ff8a73;--ok:#8fe0a8}
 *{box-sizing:border-box;margin:0}
-html,body{height:100%}
-body{background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-#app{max-width:640px;margin:auto;padding:12px 16px 90px}
+html,body{min-height:100%}
+body{background:radial-gradient(circle at 20% -10%,#1f5a4d,var(--bg) 60%) fixed;color:var(--tx);font:16px/1.5 system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#app{max-width:640px;margin:auto;padding:12px 16px 110px}
 h1,h2,h3{font-family:Georgia,serif;font-weight:700;line-height:1.2}
-h1{font-size:30px}h2{font-size:22px;margin:4px 0 10px}
-header{display:flex;align-items:center;gap:10px;margin:8px 0 16px}
-header h1,header h2{flex:1;margin:0}
-button{font:inherit;border:0;border-radius:10px;padding:10px 16px;background:var(--ac);color:#241a00;font-weight:600}
-button.g{background:var(--sf2);color:var(--tx)}
-a.btn{display:inline-block;border-radius:10px;padding:10px 16px;background:var(--sf2);color:var(--tx);font-weight:600;text-decoration:none}
-button.r{background:none;color:var(--bad);padding:6px 0}
-button.i{background:var(--sf);color:var(--tx);padding:8px 12px}
-.card{background:var(--sf);border-radius:16px 16px 16px 4px;padding:14px 16px;margin:0 0 10px}
-.card small{display:block;color:var(--mu)}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px;margin-bottom:4px}
+header{display:flex;align-items:center;gap:10px;margin:8px 0 18px}
+header>div{flex:1}
+button{font:inherit;border:0;border-radius:14px;padding:11px 18px;background:var(--ac);color:#241a00;font-weight:700;box-shadow:0 2px 0 #b98a1c}
+button.g{background:var(--sf2);color:var(--tx);box-shadow:none}
+a.btn{display:inline-block;border-radius:14px;padding:11px 18px;background:var(--sf2);color:var(--tx);font-weight:700;text-decoration:none}
+button.r{background:none;color:var(--bad);padding:6px 0;box-shadow:none}
+button.i,.cam{background:#000a;color:#fff;padding:8px 13px;border-radius:50px;box-shadow:none;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.gc{background:var(--sf);border-radius:18px;overflow:hidden;box-shadow:0 6px 16px #0006}
+.gc img,.ph{width:100%;height:130px;object-fit:cover;display:block}
+.ph{display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--sf2),var(--sf))}
+.gi{padding:10px 12px 12px}.gi b{display:block;font-family:Georgia,serif;margin-bottom:6px}
+.bar{height:6px;background:#0006;border-radius:6px;overflow:hidden;margin:4px 0}
+.bar i{display:block;height:100%;background:var(--ac)}
+.hero{position:relative;height:190px;margin:-12px -16px 16px;overflow:hidden}
+.hero img,.hero .ph{height:100%;width:100%;object-fit:cover}
+.hv{position:absolute;inset:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(#0000 30%,#0b241f)}
+.hv .i{position:absolute;top:calc(12px + env(safe-area-inset-top));left:16px}
+.hv .cam{position:absolute;top:calc(12px + env(safe-area-inset-top));right:16px}
+.card{background:var(--sf);border-radius:18px;padding:16px;margin:0 0 12px;box-shadow:0 4px 12px #0004}
+.card small,small{display:block;color:var(--mu)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
 .chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px}
-.chip{flex:none;background:var(--sf);color:var(--tx);border-radius:20px;padding:6px 12px;font-size:14px}
-.chip.on{background:var(--ac);color:#241a00}
-input,textarea{width:100%;font:inherit;color:var(--tx);background:var(--sf);border:1px solid var(--sf2);border-radius:10px;padding:10px;margin:6px 0}
+.chip{flex:none;background:var(--sf);color:var(--tx);border-radius:20px;padding:7px 14px;font-size:14px}
+.chip.on{background:var(--ac);color:#241a00;font-weight:700}
+input,textarea{width:100%;font:inherit;color:var(--tx);background:#0a2822;border:1px solid var(--sf2);border-radius:12px;padding:11px;margin:6px 0}
 textarea{min-height:90px}
-.tabs{position:fixed;left:0;right:0;bottom:0;display:flex;background:#0c2924;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-.tabs button{flex:1;background:none;color:var(--mu);padding:8px 2px;font-size:13px}
+.tabs{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;background:#071c18ee;border-radius:22px;padding:6px;box-shadow:0 6px 20px #000a;max-width:616px;margin:auto}
+.tabs button{flex:1;background:none;color:var(--mu);padding:6px 2px;font-size:11px;box-shadow:none;display:flex;flex-direction:column;align-items:center}
+.tabs button span{font-size:20px}
 .tabs button.on{color:var(--ac)}
-.msg{padding:10px 14px;margin:8px 0;border-radius:14px;background:var(--sf)}
-.msg.u{background:var(--sf2);margin-left:36px}
+.msg{padding:10px 14px;margin:8px 0;border-radius:16px 16px 16px 4px;background:var(--sf)}
+.msg.u{background:var(--sf2);margin-left:36px;border-radius:16px 16px 4px 16px}
 .ok{color:var(--ok)}.no{color:var(--bad)}
 ul{padding-left:20px}
 #busy{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-size:18px;z-index:9}
@@ -56,7 +69,7 @@ const rules=g=>g.docs.map(d=>d.pages.map((t,i)=>`[${d.name}, p.${i+1}] ${t}`).jo
 async function ai(g,msgs,max=4000,extra=''){
   const {k,m}=cfg();if(!k){settings();throw Error('Serve la chiave API Gemini (⚙)')}
   const sys=`Sei un esperto di giochi da tavolo. Rispondi in italiano usando SOLO il regolamento qui sotto; se un'informazione manca, dillo. Il testo è diviso per pagina con etichette [documento, p.N].\n\n`+rules(g)+(extra?'\n\n'+extra:'');
-  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`,{method:'POST',headers:{'content-type':'application/json','x-goog-api-key':k},body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:msgs.map(x=>({role:x.role=='user'?'user':'model',parts:[{text:x.content}]})),generationConfig:{maxOutputTokens:max*3}})});
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(k)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:msgs.map(x=>({role:x.role=='user'?'user':'model',parts:[{text:x.content}]})),generationConfig:{maxOutputTokens:max*3}})});
   const j=await r.json();
   if(!r.ok)throw Error(r.status==429?'Limite gratuito raggiunto: riprova tra un minuto (o domani).':(j.error?.message||r.status));
   const t=(j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('');
@@ -64,13 +77,16 @@ async function ai(g,msgs,max=4000,extra=''){
 }
 async function run(msg,f){const b=$('#busy');b.textContent=msg;b.hidden=false;try{await f()}catch(e){alert('Errore: '+e.message)}b.hidden=true;render()}
 
+const img=f=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=480;c.height=i.height*480/i.width;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.75))};i.onerror=rej;i.src=URL.createObjectURL(f)});
+const setCover=async e=>{const f=e.target.files[0];if(!f)return;G.cover=await img(f);await save();render()};
 async function readPdf(file){
   const d=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise,pages=[];
   for(let i=1;i<=d.numPages;i++){const c=await(await d.getPage(i)).getTextContent();pages.push(c.items.map(x=>x.str).join(' ').replace(/\s+/g,' ').trim())}
   if(pages.join('').length<200)throw Error('Il PDF non contiene testo (forse è una scansione).');
+  try{const pg=await d.getPage(1),sc=480/pg.getViewport({scale:1}).width,vp=pg.getViewport({scale:sc}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;pages.cover=c.toDataURL('image/jpeg',.7)}catch(e){}
   return pages;
 }
-const addGame=()=>{const n=$('#gn').value.trim(),f=$('#gf').files[0];if(!n||!f)return alert('Inserisci nome e PDF');return run('Leggo il PDF...',async()=>{games.push({id:Date.now(),name:n,docs:[{name:'Base',pages:await readPdf(f)}],done:{},last:0,mistakes:[],chat:[]});await save()})};
+const addGame=()=>{const n=$('#gn').value.trim(),f=$('#gf').files[0],p=$('#gp').files[0];if(!n||!f)return alert('Inserisci nome e PDF');return run('Leggo il PDF...',async()=>{const pages=await readPdf(f);games.push({id:Date.now(),name:n,cover:p?await img(p):pages.cover,docs:[{name:'Base',pages}],done:{},last:0,mistakes:[],chat:[]});await save()})};
 const addDoc=()=>{const f=$('#df').files[0];if(!f)return;const n=prompt('Nome del documento',f.name.replace(/\.pdf$/i,''));if(!n)return;return run('Leggo il PDF...',async()=>{G.docs.push({name:n,pages:await readPdf(f)});await save()})};
 const delGame=()=>{if(confirm('Eliminare '+G.name+'?')){games=games.filter(x=>x!==G);G=null;S.v='home';save();render()}};
 
@@ -100,12 +116,15 @@ function share(){const q=G.study.quick;const t=`🎲 ${G.name} - ripasso rapido\
 const st=g=>g.study?`${Object.keys(g.done).length}/${g.study.chapters.length} capitoli ripassati`+(g.mistakes.length?`, ${g.mistakes.length} da rivedere`:''):'Ripasso da generare';
 const gen=m=>`<div class=card><p>${m}</p><div class=row><button onclick="genStudy()">Genera il ripasso</button></div></div>`;
 
-function home(){return `<header><h1>Ludoteca</h1><button class=i onclick="settings()">⚙</button></header>`+
-  (games.map(g=>`<div class=card onclick="G=games.find(x=>x.id==${g.id});S.v='game';S.tab='ripasso';quiz=null;render()"><b>${esc(g.name)}</b><small>${st(g)}</small></div>`).join('')||'<p class=mu>Nessun gioco ancora. Aggiungi il primo regolamento.</p>')+
-  `<div class=card><h3>Nuovo gioco</h3><input id=gn placeholder="Nome del gioco"><input id=gf type=file accept="application/pdf"><div class=row><button onclick="addGame()">Aggiungi</button></div></div>`}
+const pct=g=>g.study?Math.round(Object.keys(g.done).length/g.study.chapters.length*100):0;
+const art=g=>g.cover?`<img src="${g.cover}">`:`<div class=ph>🎲</div>`;
+function home(){return `<header><div><h1>🎲 Ludoteca</h1><p class=mu>${games.length?games.length+' giochi nella collezione':'La tua collezione di giochi'}</p></div><button class=i onclick="settings()">⚙</button></header>`+
+  `<div class=grid>${games.map(g=>`<div class=gc onclick="G=games.find(x=>x.id==${g.id});S.v='game';S.tab='ripasso';quiz=null;render()">${art(g)}<div class=gi><b>${esc(g.name)}</b><div class=bar><i style="width:${pct(g)}%"></i></div><small>${g.study?pct(g)+'% ripassato':'Da ripassare'}${g.mistakes.length?' · '+g.mistakes.length+' ❗':''}</small></div></div>`).join('')}</div>`+
+  (games.length?'':'<p class=mu style="margin-bottom:14px">Nessun gioco ancora: aggiungi il primo regolamento qui sotto.</p>')+
+  `<div class=card><h3>➕ Nuovo gioco</h3><input id=gn placeholder="Nome del gioco"><small>Regolamento (PDF)</small><input id=gf type=file accept="application/pdf"><small>Foto di copertina (facoltativa, altrimenti uso la prima pagina del PDF)</small><input id=gp type=file accept="image/*"><div class=row><button onclick="addGame()">Aggiungi</button></div></div>`}
 
 function game(){
-  const T=[['ripasso','Ripasso'],['quiz','Interrogami'],['serata','Serata'],['chat','Chiedi'],['scheda','Scheda']];
+  const T=[['ripasso','📖','Ripasso'],['quiz','🧠','Interrogami'],['serata','🎉','Serata'],['chat','💬','Chiedi'],['scheda','📋','Scheda']];
   let b='';const s=G.study;
   if(S.tab=='ripasso'){
     if(!s)b=gen('Ancora nessun ripasso per questo gioco.');
@@ -128,7 +147,7 @@ function game(){
     b=`<div class=card><h2>Scheda</h2>${s?md(s.summary):'<p class=mu>Nessuna scheda: genera il ripasso.</p>'}<div class=row><button class=g onclick="genStudy()">${s?'Rigenera ripasso':'Genera ripasso'}</button></div></div>
     <div class=card><h3>Documenti</h3><ul>${G.docs.map(d=>`<li>${esc(d.name)} <span class=mu>(${d.pages.length} pagine)</span></li>`).join('')}</ul><input id=df type=file accept="application/pdf" onchange="addDoc()"><small>Aggiungi un'espansione, poi rigenera il ripasso.</small></div>
     <button class=r onclick="delGame()">Elimina gioco</button>`}
-  return `<header><button class=i onclick="S.v='home';render()">←</button><h2>${esc(G.name)}</h2></header>${b}<nav class=tabs>${T.map(t=>`<button class="${S.tab==t[0]?'on':''}" onclick="S.tab='${t[0]}';render()">${t[1]}</button>`).join('')}</nav>`}
+  return `<div class=hero>${art(G)}<div class=hv><button class=i onclick="S.v='home';render()">←</button><label class=cam>📷<input type=file accept="image/*" hidden onchange="setCover(event)"></label><h2>${esc(G.name)}</h2><div class=bar><i style="width:${pct(G)}%"></i></div></div></div>${b}<nav class=tabs>${T.map(t=>`<button class="${S.tab==t[0]?'on':''}" onclick="S.tab='${t[0]}';render()"><span>${t[1]}</span>${t[2]}</button>`).join('')}</nav>`}
 
 function render(){$('#app').innerHTML=S.v=='home'||!G?home():game();window.scrollTo(0,0)}
 (async()=>{games=await get('games')||[];render()})();
