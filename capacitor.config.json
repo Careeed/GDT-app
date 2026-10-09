@@ -1,1 +1,1 @@
-{ "appId": "it.ludoteca.ripasso", "appName": "Ludoteca", "webDir": "www" }
+{ "appId": "it.ludoteca.ripasso", "appName": "Ludoteca", "webDir": "www", "plugins": { "CapacitorHttp": { "enabled": true } } }
