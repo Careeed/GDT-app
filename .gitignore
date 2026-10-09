@@ -1,0 +1,4 @@
+node_modules
+android
+www/pdf.min.js
+www/pdf.worker.min.js
