@@ -1,0 +1,233 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ludoteca</title>
+<style>
+:root{--bg:#0e2f29;--sf:#1b4b42;--sf2:#2a6b5d;--tx:#f4f0e6;--mu:#a9c2b8;--ac:#f2b632;--bad:#ff8a73;--ok:#8fe0a8}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{background:radial-gradient(circle at 20% -10%,#1f5a4d,var(--bg) 60%) fixed;color:var(--tx);font:16px/1.5 system-ui,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#app{max-width:640px;margin:auto;padding:12px 16px 110px}
+h1,h2,h3{font-family:Georgia,serif;font-weight:700;line-height:1.2}
+h1{font-size:30px}h2{font-size:24px}h3{font-size:18px;margin-bottom:4px}
+header{display:flex;align-items:center;gap:10px;margin:8px 0 18px}
+header>div{flex:1}
+button{font:inherit;border:0;border-radius:14px;padding:11px 18px;background:var(--ac);color:#241a00;font-weight:700;box-shadow:0 2px 0 #b98a1c}
+button.g{background:var(--sf2);color:var(--tx);box-shadow:none}
+a.btn{display:inline-block;border-radius:14px;padding:11px 18px;background:var(--sf2);color:var(--tx);font-weight:700;text-decoration:none}
+button.r{background:none;color:var(--bad);padding:6px 0;box-shadow:none}
+button.i,.cam{background:#000a;color:#fff;padding:8px 13px;border-radius:50px;box-shadow:none;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.gc{background:var(--sf);border-radius:18px;overflow:hidden;box-shadow:0 6px 16px #0006}
+.gc img,.ph{width:100%;height:130px;object-fit:cover;display:block}
+.ph{display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--sf2),var(--sf))}
+.gi{padding:10px 12px 12px}.gi b{display:block;font-family:Georgia,serif;margin-bottom:6px}
+.bar{height:6px;background:#0006;border-radius:6px;overflow:hidden;margin:4px 0}
+.bar i{display:block;height:100%;background:var(--ac)}
+.hero{position:relative;height:190px;margin:-12px -16px 16px;overflow:hidden}
+.hero img,.hero .ph{height:100%;width:100%;object-fit:cover}
+.hv{position:absolute;inset:0;padding:14px 16px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(#0000 30%,#0b241f)}
+.hv .i{position:absolute;top:calc(12px + env(safe-area-inset-top));left:16px}
+.hv .cam{position:absolute;top:calc(12px + env(safe-area-inset-top));right:16px}
+.card{background:var(--sf);border-radius:18px;padding:16px;margin:0 0 12px;box-shadow:0 4px 12px #0004}
+.card small,small{display:block;color:var(--mu)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:8px}
+.chip{flex:none;background:var(--sf);color:var(--tx);border-radius:20px;padding:7px 14px;font-size:14px}
+.chip.on{background:var(--ac);color:#241a00;font-weight:700}
+input,textarea{width:100%;font:inherit;color:var(--tx);background:#0a2822;border:1px solid var(--sf2);border-radius:12px;padding:11px;margin:6px 0}
+textarea{min-height:90px}
+.tabs{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;background:#071c18ee;border-radius:22px;padding:6px;box-shadow:0 6px 20px #000a;max-width:616px;margin:auto}
+.tabs button{flex:1;background:none;color:var(--mu);padding:6px 2px;font-size:10px;box-shadow:none;display:flex;flex-direction:column;align-items:center}
+.tabs button span{font-size:20px}
+.tabs button.on{color:var(--ac)}
+.msg{padding:10px 14px;margin:8px 0;border-radius:16px 16px 16px 4px;background:var(--sf)}
+.msg.u{background:var(--sf2);margin-left:36px;border-radius:16px 16px 4px 16px}
+.ok{color:var(--ok)}.no{color:var(--bad)}
+ul{padding-left:20px}
+#busy{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-size:18px;z-index:9}
+#busy[hidden]{display:none}
+.mu{color:var(--mu)}
+.sb{display:block;background:var(--sf);border:2px solid var(--ac);border-radius:16px;padding:16px;font-size:18px;margin-bottom:16px;box-shadow:0 4px 12px #0004}
+input.big{font-size:20px;padding:16px;border:2px solid var(--ac)}
+select{width:100%;font:inherit;color:var(--tx);background:#0a2822;border:1px solid var(--sf2);border-radius:12px;padding:11px;margin:6px 0 12px}
+mark{background:var(--ac);color:#241a00;border-radius:3px;padding:0 2px}
+.ov{position:fixed;inset:0;background:var(--bg);overflow:auto;z-index:8;padding:env(safe-area-inset-top) 16px 24px}
+.ov[hidden]{display:none}
+#pv{z-index:10;padding:0}
+.pvb{position:sticky;top:0;left:0;display:flex;gap:8px;align-items:center;justify-content:center;padding:8px;background:#071c18;z-index:2}
+.pvb button{padding:8px 14px}
+.rdb{line-height:1.7;font-size:17px;margin-bottom:8px}
+</style></head><body><div id="app"></div><div id="busy" hidden></div>
+<div id="rd" class="ov" hidden></div>
+<div id="pv" class="ov" hidden><div class="pvb"><button class="i" onclick="pvClose()">✕</button><button class="g" onclick="pvGo(-1)">◀</button><span id="pvn"></span><button class="g" onclick="pvGo(1)">▶</button><button class="g" onclick="pvZ(-.5)">−</button><button class="g" onclick="pvZ(.5)">+</button></div><div id="pvc"></div></div>
+<input id="rf" type="file" accept="application/pdf" hidden onchange="doRep(event)">
+<script src="pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc='pdf.worker.min.js';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const md=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^[-•] (.+)$/gm,'<li>$1</li>').replace(/(<li>.*<\/li>\n?)+/g,m=>'<ul>'+m.replace(/\n/g,'')+'</ul>').replace(/\n/g,'<br>');
+const J=t=>JSON.parse(t.slice(t.search(/[\[{]/),Math.max(t.lastIndexOf('}'),t.lastIndexOf(']'))+1));
+const DB=new Promise((r,j)=>{const q=indexedDB.open('lud',2);q.onupgradeneeded=()=>{const d=q.result;for(const n of['k','pdf'])if(!d.objectStoreNames.contains(n))d.createObjectStore(n)};q.onsuccess=()=>r(q.result);q.onerror=()=>j(q.error)});
+const tx=async(m,f,st='k')=>{const d=await DB;return new Promise((res,rej)=>{const t=d.transaction(st,m),q=f(t.objectStore(st));t.oncomplete=()=>res(q.result);t.onabort=()=>rej(t.error||q.error);q.onerror=()=>rej(q.error)})};
+const get=k=>tx('readonly',s=>s.get(k)),put=(k,v)=>tx('readwrite',s=>s.put(v,k));
+const pget=k=>tx('readonly',s=>s.get(k),'pdf'),pput=(k,v)=>tx('readwrite',s=>s.put(v,k),'pdf'),pdel=k=>tx('readwrite',s=>s.delete(k),'pdf');
+let games=[],S={v:'home',tab:'ripasso'},G=null,quiz=null,IDX=[],FAV=[],REC=[],RES=[],EL=[],SQ={q:'',gid:'all'},RD=null,PV=null,RI=null,qt;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const save=()=>put('games',games);
+const cfg=()=>({k:localStorage.getItem('key')||'',m:localStorage.getItem('model')||'gemini-flash-latest'});
+const CH=['Obiettivo','Preparazione','Turno','Azioni','Regole speciali','Fine partita e punteggio'];
+
+function settings(){const k=prompt('Chiave API Gemini (gratis su aistudio.google.com/apikey)',cfg().k);if(k!==null)localStorage.setItem('key',k.trim());const m=prompt('Modello',cfg().m);if(m)localStorage.setItem('model',m.trim())}
+const rules=g=>g.docs.map(d=>d.pages.map((t,i)=>`[${d.name}, p.${i+1}] ${t}`).join('\n')).join('\n\n').slice(0,600000);
+
+async function ai(g,msgs,max=4000,extra=''){
+  if(!navigator.onLine)throw Error('Sei offline: questa funzione richiede Internet. La ricerca delle regole funziona comunque.');const {k,m}=cfg();if(!k){settings();throw Error('Serve la chiave API Gemini (⚙)')}
+  const sys=`Sei un esperto di giochi da tavolo. Rispondi in italiano usando SOLO il regolamento qui sotto; se un'informazione manca, dillo. Il testo è diviso per pagina con etichette [documento, p.N].\n\n`+rules(g)+(extra?'\n\n'+extra:'');
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(k)}`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({systemInstruction:{parts:[{text:sys}]},contents:msgs.map(x=>({role:x.role=='user'?'user':'model',parts:[{text:x.content}]})),generationConfig:{maxOutputTokens:max*3}})});
+  const j=await r.json();
+  if(!r.ok)throw Error(r.status==429?'Limite gratuito raggiunto: riprova tra un minuto (o domani).':(j.error?.message||r.status));
+  const t=(j.candidates?.[0]?.content?.parts||[]).map(x=>x.text||'').join('');
+  if(!t)throw Error('Risposta vuota, riprova.');return t;
+}
+async function run(msg,f){const b=$('#busy');b.textContent=msg;b.hidden=false;try{await f()}catch(e){alert('Errore: '+e.message)}b.hidden=true;render()}
+
+const img=f=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas');c.width=480;c.height=i.height*480/i.width;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.75))};i.onerror=rej;i.src=URL.createObjectURL(f)});
+const setCover=async e=>{const f=e.target.files[0];if(!f)return;G.cover=await img(f);await save();render()};
+async function readPdf(file){
+  const d=await pdfjsLib.getDocument({data:await file.arrayBuffer()}).promise,pages=[];
+  for(let i=1;i<=d.numPages;i++){const c=await(await d.getPage(i)).getTextContent();pages.push(c.items.map(x=>x.str).join(' ').replace(/\s+/g,' ').trim())}
+  if(pages.join('').length<200)throw Error('Il PDF non contiene testo (forse è una scansione).');
+  try{const pg=await d.getPage(1),sc=480/pg.getViewport({scale:1}).width,vp=pg.getViewport({scale:sc}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;pages.cover=c.toDataURL('image/jpeg',.7)}catch(e){}
+  return pages;
+}
+const addGame=()=>{const n=$('#gn').value.trim(),f=$('#gf').files[0],p=$('#gp').files[0];if(!n||!f)return alert('Inserisci nome e PDF');return run('Leggo il PDF...',async()=>{const pages=await readPdf(f),d={id:uid(),name:'Base',pages};await savePdf(d,f);games.push({id:Date.now(),name:n,cover:p?await img(p):pages.cover,docs:[d],done:{},last:0,mistakes:[],chat:[]});rebuildIdx();await save()})};
+const addDoc=()=>{const f=$('#df').files[0];if(!f)return;const n=prompt('Nome del documento',f.name.replace(/\.pdf$/i,''));if(!n)return;return run('Leggo il PDF...',async()=>{const d={id:uid(),name:n,pages:await readPdf(f)};await savePdf(d,f);G.docs.push(d);rebuildIdx();await save()})};
+async function savePdf(d,f){try{const e=await navigator.storage?.estimate?.();if(e&&e.quota&&e.quota-e.usage<f.size*1.3)throw Error('quota');await pput(d.id,new Blob([f],{type:'application/pdf'}));d.hasPdf=true}catch(e){d.hasPdf=false;try{await pdel(d.id)}catch(_){}alert('Spazio insufficiente o salvataggio non riuscito: il testo è indicizzato e la ricerca funziona, ma il PDF originale non è stato conservato. Libera spazio e reimportalo dalla Scheda per aprirlo alla pagina esatta.')}}
+const d_rep=i=>{RI=i;$('#rf').click()};
+const doRep=e=>{const f=e.target.files[0];e.target.value='';if(!f||RI==null)return;const d=G.docs[RI];return run('Leggo il PDF...',async()=>{d.pages=await readPdf(f);await savePdf(d,f);rebuildIdx();await save()})};
+const d_del=i=>{if(G.docs.length<2)return alert('È l\'unico documento del gioco: sostituiscilo, oppure elimina il gioco.');if(!confirm('Eliminare "'+G.docs[i].name+'" e il suo testo indicizzato?'))return;return run('Elimino...',async()=>{const[d]=G.docs.splice(i,1);try{await pdel(d.id)}catch(e){}rebuildIdx();await save()})};
+const d_open=i=>{const d=G.docs[i];d.hasPdf?pdfOpen(G.id,d.id,1):rd(G.id,d.id,1,null,'')};
+const delGame=()=>{if(confirm('Eliminare '+G.name+'?')){const g=G;games=games.filter(x=>x!==g);G=null;S.v='home';g.docs.forEach(d=>pdel(d.id).catch(()=>{}));rebuildIdx();save();render()}};
+
+const genStudy=()=>run('Preparo il ripasso (può richiedere 1-2 minuti)...',async()=>{
+  const t=await ai(G,[{role:'user',content:`Trasforma il regolamento in un ripasso completo. Rispondi SOLO con JSON:
+{"summary":"scheda riassuntiva di max 150 parole","chapters":[{"t":"titolo","c":"spiegazione completa e chiara con elenchi puntati (- ) e **grassetto** per i termini chiave, citando le pagine","p":"pagine di riferimento"}],"quick":{"prep":"preparazione in breve","order":"ordine dei turni e cosa si fa","scoring":"come si calcola il punteggio e quando finisce","forgotten":["5 regole che si dimenticano più spesso, con pagina"]}}
+I capitoli devono essere esattamente, in ordine: ${CH.join(', ')}.`}],8000);
+  G.study=J(t);G.done={};G.last=0;await save()});
+
+const startQuiz=()=>run('Preparo le domande...',async()=>{
+  const m=G.mistakes.map(x=>x.q).join(' | ');
+  const t=await ai(G,[{role:'user',content:`Genera 8 domande a difficoltà crescente (dalle basi ai casi particolari) per verificare che ricordi il regolamento. ${m?'Includi varianti di queste che ho sbagliato: '+m+'. ':''}Solo JSON: [{"q":"","a":"risposta corretta sintetica","ch":"capitolo","p":"pagina"}]`}],3000);
+  quiz={queue:J(t),i:0,ok:0,fb:null,n:8}});
+const grade=()=>{const a=$('#ans').value.trim();if(!a)return;const x=quiz.queue[quiz.i];
+  return run('Correggo...',async()=>{const j=J(await ai(G,[{role:'user',content:`Domanda: ${x.q}\nRisposta corretta: ${x.a}\nRisposta dell'utente: ${a}\nSii indulgente sui dettagli secondari. Solo JSON: {"ok":true,"fb":"correzione breve che cita la regola e la pagina"} (ok true/false)`}],600));
+    quiz.fb=j;
+    if(j.ok){if(!x.retry)quiz.ok++;G.mistakes=G.mistakes.filter(m=>m.q!==x.q)}
+    else{if(!G.mistakes.some(m=>m.q===x.q))G.mistakes.push({q:x.q,a:x.a,ch:x.ch,p:x.p});if(!x.retry)quiz.queue.push({...x,retry:1})}
+    await save()})};
+const next=()=>{quiz.i++;quiz.fb=null;render()};
+
+const send=()=>{const v=$('#msg').value.trim();if(!v)return;G.chat.push({role:'user',content:v});
+  return run('Cerco nel regolamento...',async()=>{try{G.chat.push({role:'assistant',content:await ai(G,G.chat.slice(-12),1500,'Rispondi in modo chiaro e conciso. Chiudi sempre con "Fonte: capitolo/sezione, documento, pagina X".')});await save()}catch(e){G.chat.pop();throw e}})};
+function share(){const q=G.study.quick;const t=`🎲 ${G.name} - ripasso rapido\n\nPREPARAZIONE\n${q.prep}\n\nORDINE DEI TURNI\n${q.order}\n\nPUNTEGGIO\n${q.scoring}\n\nDA NON DIMENTICARE\n- ${q.forgotten.join('\n- ')}`;
+  navigator.share?navigator.share({title:G.name,text:t}).catch(()=>{}):navigator.clipboard.writeText(t).then(()=>alert('Copiato negli appunti'))}
+
+const st=g=>g.study?`${Object.keys(g.done).length}/${g.study.chapters.length} capitoli ripassati`+(g.mistakes.length?`, ${g.mistakes.length} da rivedere`:''):'Ripasso da generare';
+const gen=m=>`<div class=card><p>${m}</p><div class=row><button onclick="genStudy()">Genera il ripasso</button></div></div>`;
+
+const pct=g=>g.study?Math.round(Object.keys(g.done).length/g.study.chapters.length*100):0;
+const art=g=>g.cover?`<img src="${g.cover}">`:`<div class=ph>🎲</div>`;
+function home(){return `<header><div><h1>🎲 Ludoteca</h1><p class=mu>${games.length?games.length+' giochi nella collezione':'La tua collezione di giochi'}</p></div><button class=i onclick="settings()">⚙</button></header><div class=sb onclick="openSearch('all')">🔍 Cerca una regola…<small>Funziona anche senza Internet</small></div>`+
+  `<div class=grid>${games.map(g=>`<div class=gc onclick="G=games.find(x=>x.id==${g.id});S.v='game';S.tab='ripasso';quiz=null;render()">${art(g)}<div class=gi><b>${esc(g.name)}</b><div class=bar><i style="width:${pct(g)}%"></i></div><small>${g.study?pct(g)+'% ripassato':'Da ripassare'}${g.mistakes.length?' · '+g.mistakes.length+' ❗':''}</small></div></div>`).join('')}</div>`+
+  (games.length?'':'<p class=mu style="margin-bottom:14px">Nessun gioco ancora: aggiungi il primo regolamento qui sotto.</p>')+
+  `<div class=card><h3>➕ Nuovo gioco</h3><input id=gn placeholder="Nome del gioco"><small>Regolamento (PDF)</small><input id=gf type=file accept="application/pdf"><small>Foto di copertina (facoltativa, altrimenti uso la prima pagina del PDF)</small><input id=gp type=file accept="image/*"><div class=row><button onclick="addGame()">Aggiungi</button></div></div>`}
+
+function game(){
+  const T=[['cerca','🔍','Cerca'],['ripasso','📖','Ripasso'],['quiz','🧠','Interrogami'],['serata','🎉','Serata'],['chat','💬','Chiedi'],['scheda','📋','Scheda']];
+  let b='';const s=G.study;
+  if(S.tab=='ripasso'){
+    if(!s)b=gen('Ancora nessun ripasso per questo gioco.');
+    else{const i=G.last,c=s.chapters[i];
+      b=`<div class=chips>${s.chapters.map((x,j)=>`<span class="chip ${j==i?'on':''}" onclick="G.last=${j};save();render()">${G.done[j]?'✓ ':''}${esc(x.t)}</span>`).join('')}</div>
+      <div class=card><h2>${esc(c.t)}</h2>${md(c.c)}<small style="margin-top:10px">Pagine: ${esc(c.p)}</small></div>
+      <div class=row><button class=g onclick="G.last=Math.max(0,G.last-1);save();render()">Indietro</button><button onclick="G.done[G.last]=1;G.last=Math.min(G.last+1,${s.chapters.length-1});save();render()">Ho capito, avanti</button></div>`}
+  }else if(S.tab=='quiz'){
+    if(!s)b=gen('Prima serve il ripasso.');
+    else if(!quiz)b=`<div class=card><h2>Interrogami</h2><p>8 domande a difficoltà crescente. Le regole che sbagli tornano alla fine.</p>${G.mistakes.length?`<p class=no>${G.mistakes.length} regole sbagliate in passato verranno riproposte.</p>`:''}<div class=row><button onclick="startQuiz()">Inizia</button></div></div>`;
+    else if(quiz.i>=quiz.queue.length)b=`<div class=card><h2>Finito: ${quiz.ok}/${quiz.n}</h2>${G.mistakes.length?'<p>Da rivedere:</p><ul>'+G.mistakes.map(m=>`<li>${esc(m.q)} <span class=mu>(${esc(m.ch)}, p. ${esc(m.p)})</span></li>`).join('')+'</ul>':'<p class=ok>Nessun errore aperto.</p>'}<div class=row><button onclick="quiz=null;render()">Ancora</button></div></div>`;
+    else{const x=quiz.queue[quiz.i];
+      b=`<div class=card><small>${x.retry?'Riprova — ':''}Domanda ${quiz.i+1}/${quiz.queue.length}</small><h3 style="margin-top:6px">${esc(x.q)}</h3>${quiz.fb?`<textarea disabled>${esc($('#ans')?.value||'')}</textarea><p class="${quiz.fb.ok?'ok':'no'}"><b>${quiz.fb.ok?'Corretto.':'Non esatto.'}</b> ${esc(quiz.fb.fb)}</p><small>${esc(x.ch)}, p. ${esc(x.p)}</small><div class=row><button onclick="next()">Avanti</button></div>`:`<textarea id=ans placeholder="La tua risposta"></textarea><div class=row><button onclick="grade()">Verifica</button></div>`}</div>`}
+  }else if(S.tab=='serata'){
+    if(!s)b=gen('Prima serve il ripasso.');
+    else{const q=s.quick;b=`<div class=card><h2>${esc(G.name)}</h2><h3>Preparazione</h3><p>${md(q.prep)}</p><h3 style="margin-top:12px">Ordine dei turni</h3><p>${md(q.order)}</p><h3 style="margin-top:12px">Punteggio</h3><p>${md(q.scoring)}</p><h3 style="margin-top:12px">Da non dimenticare</h3><ul>${q.forgotten.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>${G.mistakes.length?'<h3 style="margin-top:12px">I tuoi errori ricorrenti</h3><ul>'+G.mistakes.map(m=>`<li>${esc(m.a)} <span class=mu>(p. ${esc(m.p)})</span></li>`).join('')+'</ul>':''}</div><div class=row><button onclick="share()">Condividi con gli amici</button></div>`}
+  }else if(S.tab=='chat'){
+    b=(G.chat.map(m=>`<div class="msg ${m.role=='user'?'u':''}">${md(m.content)}</div>`).join('')||'<p class=mu>Chiedi un caso particolare: risponderò dal regolamento, con capitolo e pagina.</p>')+`<textarea id=msg placeholder="Es. Posso scambiare risorse fuori dal mio turno?"></textarea><div class=row><button onclick="send()">Invia</button><a class=btn href="https://notebooklm.google.com" target="_blank">Apri NotebookLM (serve Internet)</a>${G.chat.length?'<button class=g onclick="G.chat=[];save();render()">Svuota chat</button>':''}</div>`;
+  }else{
+    b=`<div class=card><h2>Scheda</h2>${s?md(s.summary):'<p class=mu>Nessuna scheda: genera il ripasso.</p>'}<div class=row><button class=g onclick="genStudy()">${s?'Rigenera ripasso':'Genera ripasso'}</button></div></div>
+    <div class=card><h3>Documenti</h3><ul>${G.docs.map((d,i)=>`<li>${esc(d.name)} <span class=mu>(${d.pages.length} pagine)</span><div class=row style="margin:4px 0 8px"><button class=g onclick="d_open(${i})">${d.hasPdf?'Apri PDF':'Leggi testo'}</button><button class=g onclick="d_rep(${i})">${d.hasPdf?'Sostituisci':'Reimporta PDF'}</button><button class=r onclick="d_del(${i})">Elimina</button></div>${d.hasPdf?'':'<small class=no>PDF originale non salvato: reimportalo per aprirlo alla pagina esatta (la ricerca funziona già).</small>'}</li>`).join('')}</ul><input id=df type=file accept="application/pdf" onchange="addDoc()"><small>Aggiungi un'espansione, poi rigenera il ripasso.</small></div>
+    <button class=r onclick="delGame()">Elimina gioco</button>`}
+  return `<div class=hero>${art(G)}<div class=hv><button class=i onclick="S.v='home';render()">←</button><label class=cam>📷<input type=file accept="image/*" hidden onchange="setCover(event)"></label><h2>${esc(G.name)}</h2><div class=bar><i style="width:${pct(G)}%"></i></div></div></div>${b}<nav class=tabs>${T.map(t=>`<button class="${S.tab==t[0]?'on':''}" onclick="${t[0]=='cerca'?'openSearch(G.id)':`S.tab='${t[0]}';render()`}"><span>${t[1]}</span>${t[2]}</button>`).join('')}</nav>`}
+
+/* ===== Ricerca locale (nessuna AI, nessuna rete) ===== */
+const norm=s=>{let l=s.toLowerCase();if(l.length!=s.length)l=s;return l.replace(/[^\x00-\x7f]/g,c=>c.normalize('NFD')[0])};
+function rebuildIdx(){IDX=[];for(const g of games)for(const d of g.docs)d.pages.forEach((o,i)=>IDX.push({g,d,p:i+1,o,n:norm(o)}))}
+const STOP=new Set('il lo la i gli le un uno una di a da in con su per tra fra e ed o ma che non si mi ti ci vi del dello della dei degli delle al allo alla ai agli alle dal dalla nel nella sul sulla come quando dove cosa chi quale quali posso puoi puo possono sono'.split(' '));
+function parseQ(q){const all=norm(q).split(/[^a-z0-9]+/).filter(Boolean);let t=all.filter(w=>!STOP.has(w));if(!t.length)t=all;t=[...new Set(t)];
+  return{t,phrase:all.join(' '),res:t.map(w=>new RegExp('(?<![a-z0-9])'+(w.length>=6?w.slice(0,-2):w.length==5?w.slice(0,-1):w)+'[a-z0-9]*','g'))}}
+function hl(o,n,a,b,res){const ns=n.slice(a,b),sub=o.slice(a,b),Rg=[];for(const re of res){re.lastIndex=0;let m;while((m=re.exec(ns)))Rg.push([m.index,m.index+m[0].length]);re.lastIndex=0}
+  Rg.sort((x,y)=>x[0]-y[0]);let out='',c=0;for(const[s,e]of Rg){if(e<=c)continue;const s2=Math.max(s,c);out+=esc(sub.slice(c,s2))+'<mark>'+esc(sub.slice(s2,e))+'</mark>';c=e}return out+esc(sub.slice(c))}
+function snip(x,P){const{o,n}=x,F=[];for(const re of P.res){re.lastIndex=0;const m=re.exec(n);re.lastIndex=0;if(m)F.push(m.index)}
+  const pi=P.t.length>1?n.indexOf(P.phrase):-1;let c=pi>=0?pi:(F.length?F.reduce((b,v)=>F.filter(w=>Math.abs(w-v)<200).length>F.filter(w=>Math.abs(w-b)<200).length?v:b,F[0]):0);
+  let a=Math.max(0,c-100),b=Math.min(o.length,c+280);if(a>0){const k=o.indexOf(' ',a);if(k>0&&k<a+25)a=k+1}if(b<o.length){const k=o.lastIndexOf(' ',b);if(k>b-25)b=k}
+  return{html:(a?'… ':'')+hl(o,n,a,b,P.res)+(b<o.length?' …':''),plain:o.slice(a,b)}}
+function search(q,gid){const P=parseQ(q),N=P.t.length;if(!N)return{P,list:[],total:0};const A=[];
+  for(const x of IDX){if(gid!='all'&&String(x.g.id)!=gid)continue;let f=0,oc=0;
+    for(const re of P.res){re.lastIndex=0;let c=0;while(c<8&&re.exec(x.n))c++;re.lastIndex=0;if(c){f++;oc+=c}}
+    if(!f)continue;const tn=x.tn||(x.tn=norm(x.d.name+' '+x.g.name));let tb=0;for(const re of P.res){re.lastIndex=0;if(re.test(tn))tb++;re.lastIndex=0}
+    const ph=N>1&&x.n.includes(P.phrase);A.push({x,f,ph,s:f*100+oc+tb*40+(ph?500:0)})}
+  const mf=A.reduce((m,a)=>Math.max(m,a.f),0),th=mf==N?N:Math.min(mf,Math.max(1,Math.ceil(N/2))),L=A.filter(a=>a.f>=th).sort((a,b)=>b.s-a.s);
+  return{P,total:L.length,list:L.slice(0,40).map(a=>({...a,...snip(a.x,P)}))}}
+
+const openSearch=gid=>{SQ.gid=String(gid);S.v='search';render()};
+const qIn=()=>{clearTimeout(qt);SQ.q=$('#sq').value;qt=setTimeout(qGo,180)};
+const pk=(g,d,p)=>g+'|'+d+'|'+p,isFav=k=>FAV.some(f=>f.k==k);
+function searchView(){return `<header><button class=i onclick="S.v=SQ.gid=='all'||!G?'home':'game';render()">←</button><div><h2>🔍 Cerca regola</h2><small>Cerca nel testo dei regolamenti, anche offline</small></div></header>
+<input id=sq class=big type=search placeholder="Es. pescare una carta" value="${esc(SQ.q)}" oninput="qIn()" autocomplete=off>
+<select onchange="SQ.gid=this.value;qGo()"><option value=all>Tutti i giochi</option>${games.map(g=>`<option value="${g.id}" ${SQ.gid==g.id?'selected':''}>${esc(g.name)}</option>`).join('')}</select><div id=sres></div>`}
+function qGo(){const el=$('#sres');if(!el)return;const q=SQ.q.trim();if(!q){el.innerHTML=emptyView();return}
+  if(!IDX.length){el.innerHTML='<div class=card><b>Nessun regolamento importato</b><p class=mu>Aggiungi un gioco con il suo PDF dalla schermata principale.</p></div>';return}
+  const r=search(q,SQ.gid);RES=r.list;
+  el.innerHTML=!r.list.length?'<div class=card><b>Nessun risultato</b><p class=mu>Prova con meno parole o senza plurali. Cerco solo nel testo dei regolamenti importati (i PDF scansionati non contengono testo).</p></div>'
+  :`<small style="margin:6px 0 10px">${r.total} risultati${r.total>r.list.length?' · mostro i migliori '+r.list.length:''}</small>`+r.list.map((a,i)=>`<div class=card><small>${esc(a.x.g.name)} · ${esc(a.x.d.name)} · pagina ${a.x.p}${a.f<r.P.t.length?' · '+a.f+'/'+r.P.t.length+' termini':''}</small><p style="margin-top:6px">${a.html}</p><div class=row><button onclick="rdOpen(${i})">Leggi</button><button class=g onclick="pdfRes(${i})">📄 PDF p.${a.x.p}</button><button class=g onclick="favRes(${i})">${isFav(pk(a.x.g.id,a.x.d.id,a.x.p))?'★':'☆'}</button></div></div>`).join('')}
+function emptyView(){EL=[...FAV,...REC];const c=(r,i,fv)=>`<div class=card><small>${esc(r.gn)} · ${esc(r.dn)} · pagina ${r.p}</small>${r.t?`<p style="margin-top:6px">${esc(r.t)} …</p>`:''}<div class=row><button onclick="rdEl(${i})">Leggi</button>${fv?`<button class=g onclick="unFav(${i})">★ Rimuovi</button>`:''}</div></div>`;
+  return(FAV.length?'<h3 style="margin:14px 0 6px">★ Preferiti</h3>'+FAV.map((r,i)=>c(r,i,1)).join(''):'')+(REC.length?'<h3 style="margin:14px 0 6px">🕘 Ultime consultazioni</h3>'+REC.map((r,i)=>c(r,FAV.length+i,0)).join(''):'')||'<p class=mu>Scrivi una parola o una frase: cerco nel testo dei regolamenti importati, senza AI e senza Internet. Qui compariranno preferiti e ultime consultazioni.</p>'}
+const rdEl=i=>{const r=EL[i];rd(r.gid,r.did,r.p,null,r.t)};
+const unFav=async i=>{FAV.splice(i,1);await put('fav',FAV);qGo()};
+const fnd=(gid,did)=>{const g=games.find(x=>x.id==gid);return[g,g&&g.docs.find(x=>x.id==did)]};
+async function togFav(f){const i=FAV.findIndex(x=>x.k==f.k);i>=0?FAV.splice(i,1):FAV.unshift(f);await put('fav',FAV)}
+const favRes=async i=>{const a=RES[i],x=a.x;await togFav({k:pk(x.g.id,x.d.id,x.p),gid:x.g.id,did:x.d.id,p:x.p,gn:x.g.name,dn:x.d.name,t:a.plain});qGo()};
+const pdfRes=i=>{const x=RES[i].x;recAdd(x.g,x.d,x.p,RES[i].plain);pdfOpen(x.g.id,x.d.id,x.p)};
+const rdOpen=i=>{const x=RES[i].x;rd(x.g.id,x.d.id,x.p,parseQ(SQ.q),RES[i].plain)};
+async function recAdd(g,d,p,t){const k=pk(g.id,d.id,p);REC=[{k,gid:g.id,did:d.id,p,gn:g.name,dn:d.name,t},...REC.filter(x=>x.k!=k)].slice(0,15);try{await put('recent',REC)}catch(e){}}
+function rd(gid,did,p,P,plain){const[g,d]=fnd(gid,did);if(!d)return alert('Documento non trovato');RD={gid,did,p,P,plain};recAdd(g,d,p,plain);rdDraw()}
+function rdDraw(){const[g,d]=fnd(RD.gid,RD.did);if(!d)return rdClose();const o=d.pages[RD.p-1]||'',k=pk(g.id,d.id,RD.p);
+  $('#rd').innerHTML=`<header style="padding-top:8px"><button class=i onclick="rdClose()">←</button><div><b>${esc(g.name)}</b><small>${esc(d.name)} · pagina ${RD.p}/${d.pages.length}</small></div><button class=i onclick="rdFav()">${isFav(k)?'★':'☆'}</button></header><div class=rdb>${o?hl(o,norm(o),0,o.length,RD.P?RD.P.res:[]):'<span class=mu>Questa pagina non contiene testo estraibile.</span>'}</div><div class=row><button class=g onclick="rdGo(-1)">◀ Prec.</button><button onclick="pdfOpen(RD.gid,RD.did,RD.p)">📄 Apri PDF</button><button class=g onclick="rdGo(1)">Succ. ▶</button></div>${d.hasPdf?'':'<small class=no>PDF originale non salvato: per aprirlo reimportalo dalla Scheda del gioco.</small>'}`;
+  $('#rd').hidden=false;$('#rd').scrollTop=0}
+const rdClose=()=>{$('#rd').hidden=true;qGo()};
+const rdGo=n=>{const[,d]=fnd(RD.gid,RD.did);RD.p=Math.min(d.pages.length,Math.max(1,RD.p+n));RD.plain='';rdDraw()};
+const rdFav=async()=>{const[g,d]=fnd(RD.gid,RD.did);await togFav({k:pk(g.id,d.id,RD.p),gid:g.id,did:d.id,p:RD.p,gn:g.name,dn:d.name,t:RD.plain||(d.pages[RD.p-1]||'').slice(0,220)});rdDraw()};
+
+/* ===== Visualizzatore PDF offline (PDF.js locale) ===== */
+async function pdfOpen(gid,did,p){const[g,d]=fnd(gid,did);if(!d)return alert('Documento non trovato');
+  let b=null;try{b=d.hasPdf?await pget(did):null}catch(e){}
+  if(!b)return alert('Il PDF originale non è salvato su questo dispositivo. Reimportalo dalla Scheda del gioco (Sostituisci / Reimporta PDF) per aprirlo alla pagina esatta. Il testo estratto resta leggibile e ricercabile.');
+  try{PV={doc:await pdfjsLib.getDocument({data:await b.arrayBuffer()}).promise,p,z:1,q:0};$('#pv').hidden=false;pvDraw()}catch(e){alert('Impossibile aprire il PDF: '+e.message)}}
+async function pvDraw(){const s=++PV.q;PV.p=Math.min(PV.doc.numPages,Math.max(1,PV.p));$('#pvn').textContent=PV.p+'/'+PV.doc.numPages;
+  try{const pg=await PV.doc.getPage(PV.p),w=innerWidth*PV.z,sc=w/pg.getViewport({scale:1}).width*Math.min(devicePixelRatio||1,2),vp=pg.getViewport({scale:sc}),c=document.createElement('canvas');
+    c.width=vp.width;c.height=vp.height;c.style.width=w+'px';await pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;if(s==PV.q){$('#pvc').replaceChildren(c);$('#pv').scrollTop=0}}catch(e){alert('Errore nel disegnare la pagina: '+e.message)}}
+const pvGo=n=>{PV.p+=n;pvDraw()},pvZ=n=>{PV.z=Math.min(3,Math.max(1,PV.z+n));pvDraw()},pvClose=()=>{$('#pv').hidden=true;PV=null};
+
+function render(){$('#app').innerHTML=S.v=='search'?searchView():S.v=='home'||!G?home():game();window.scrollTo(0,0);if(S.v=='search'){qGo();$('#sq').focus()}}
+(async()=>{try{games=await get('games')||[];FAV=await get('fav')||[];REC=await get('recent')||[];let ch=0;games.forEach(g=>g.docs.forEach(d=>{if(!d.id){d.id=uid();ch=1}}));if(ch)await save();navigator.storage?.persist?.()}catch(e){alert('Archivio locale non disponibile: '+e.message)}rebuildIdx();render()})();
+</script></body></html>

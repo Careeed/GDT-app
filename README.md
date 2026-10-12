@@ -5,3 +5,9 @@
 3. Apri l'esecuzione completata → in fondo **Artifacts** → scarica `ludoteca-apk`, estrai `app-debug.apk`.
 4. Installalo su Android (consenti "origini sconosciute").
 5. Nell'app tocca ⚙ e inserisci la tua chiave API Gemini, gratuita e senza carta di credito: aistudio.google.com/apikey.
+
+## Novità: ricerca offline
+- 🔍 "Cerca regola" nella home e nella barra in basso di ogni gioco. Nessuna AI né Internet.
+- I PDF vengono salvati in IndexedDB (database `lud` v2, store `pdf`): apribili offline alla pagina esatta.
+- I giochi creati prima di questa versione restano ricercabili; per aprire il loro PDF usa Scheda → "Reimporta PDF".
+- L'APK Capacitor serve tutti i file dall'interno dell'app: non serve un service worker.
